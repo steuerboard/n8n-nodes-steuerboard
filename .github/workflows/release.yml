@@ -1,4 +1,4 @@
-name: Create Release
+name: Release and Publish
 
 on:
   workflow_dispatch:
@@ -18,11 +18,12 @@ on:
           - prerelease
 
 jobs:
-  create-release:
+  release-and-publish:
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
+      id-token: write # Needed for npm provenance
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -34,6 +35,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
 
       - name: Configure Git
@@ -49,7 +51,7 @@ jobs:
           npm run lint
           npm run build
 
-      - name: Bump version and create release
+      - name: Bump version
         run: |
           npm version ${{ github.event.inputs.version }} -m "chore: release v%s"
           git push --follow-tags
@@ -63,3 +65,8 @@ jobs:
             --title "v${VERSION}" \
             --generate-notes \
             --latest
+
+      - name: Publish to npm with provenance
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -21,10 +21,10 @@ This guide explains how to publish new versions of the n8n-nodes-steuerboard pac
 
 ### Method 1: GitHub Release Workflow (Recommended)
 
-This is the easiest way to create a release:
+This is the easiest way to create a release and publish to npm:
 
 1. Go to the Actions tab in your GitHub repository
-2. Click on "Create Release" workflow
+2. Click on "Release and Publish" workflow
 3. Click "Run workflow"
 4. Select the release type:
    - `patch`: Bug fixes (0.1.0 → 0.1.1)
@@ -40,7 +40,7 @@ The workflow will:
 - Bump the version in package.json
 - Create a git tag
 - Create a GitHub release with auto-generated notes
-- Trigger the publish workflow automatically
+- Publish the package to npm with provenance
 
 ### Method 2: Manual Release with release-it
 
@@ -102,16 +102,19 @@ Every push and PR triggers:
 - Package building
 - Testing on Node.js 18, 20, and 22
 
-### Publish Workflow
+### Combined Release and Publish Workflow
 
-When a release is created:
+The "Release and Publish" workflow handles everything in one go:
 
 1. Checks out code
 2. Sets up Node.js with npm cache
 3. Installs dependencies
-4. Runs linting
-5. Builds the package
-6. Publishes to npm with provenance
+4. Runs linting and builds the package
+5. Bumps version and creates git tag
+6. Creates GitHub release with auto-generated notes
+7. Publishes to npm with provenance
+
+Note: The separate publish workflow still exists for manual GitHub releases.
 
 ## Pre-release Testing
 
