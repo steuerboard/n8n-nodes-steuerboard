@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.tgz
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Package files
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Generated files
+CHANGELOG.md

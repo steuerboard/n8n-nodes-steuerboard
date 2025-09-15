@@ -1,0 +1,48 @@
+# Source files (TypeScript)
+nodes/
+credentials/
+*.ts
+!*.d.ts
+
+# Development files
+.github/
+.vscode/
+.idea/
+*.log
+*.tgz
+
+# Test files
+__tests__/
+test/
+*.test.ts
+*.test.js
+*.spec.ts
+*.spec.js
+
+# Documentation
+PUBLISHING.md
+docs/
+
+# Configuration files
+.eslintrc*
+.prettierrc*
+.prettierignore
+eslint.config.mjs
+tsconfig.json
+.gitignore
+.npmignore
+.editorconfig
+.release-it.json
+
+# Examples and misc
+examples/
+coverage/
+.nyc_output/
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+
+# Icons (keep only what's needed for n8n)
+!icons/

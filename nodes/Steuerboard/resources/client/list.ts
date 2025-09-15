@@ -1,5 +1,5 @@
-import type { INodeProperties } from "n8n-workflow";
-import { OPERATION, RESOURCE } from "../../shared/constants";
+import type { INodeProperties } from 'n8n-workflow';
+import { OPERATION, RESOURCE } from '../../shared/constants';
 
 const showOnlyForClientList = {
 	operation: [OPERATION.LIST],
@@ -8,9 +8,9 @@ const showOnlyForClientList = {
 
 export const clientListDescription: INodeProperties[] = [
 	{
-		displayName: "Limit",
-		name: "limit",
-		type: "number",
+		displayName: 'Limit',
+		name: 'limit',
+		type: 'number',
 		displayOptions: {
 			show: {
 				...showOnlyForClientList,
@@ -24,43 +24,43 @@ export const clientListDescription: INodeProperties[] = [
 		default: 50,
 		routing: {
 			send: {
-				type: "query",
-				property: "limit",
-				value: "={{ $parameter.returnAll ? undefined : $value }}",
+				type: 'query',
+				property: 'limit',
+				value: '={{ $parameter.returnAll ? undefined : $value }}',
 			},
 			output: {
-				maxResults: "={{ $parameter.returnAll ? undefined : $value }}",
+				maxResults: '={{ $parameter.returnAll ? undefined : $value }}',
 			},
 		},
-		description: "Max number of results to return",
+		description: 'Max number of results to return',
 	},
 	{
-		displayName: "Return All",
-		name: "returnAll",
-		type: "boolean",
+		displayName: 'Return All',
+		name: 'returnAll',
+		type: 'boolean',
 		displayOptions: {
 			show: showOnlyForClientList,
 		},
 		default: false,
-		description: "Whether to return all results or only up to a given limit",
+		description: 'Whether to return all results or only up to a given limit',
 		routing: {
 			send: {
-				paginate: "={{ $value }}",
-				type: "query",
-				property: "limit",
+				paginate: '={{ $value }}',
+				type: 'query',
+				property: 'limit',
 				value: "={{ $value ? '100' : undefined }}",
 			},
 			operations: {
 				pagination: {
-					type: "generic",
+					type: 'generic',
 					properties: {
-						continue: "={{ !!($response.body.pagination?.nextCursor) }}",
+						continue: '={{ !!($response.body.pagination?.nextCursor) }}',
 						request: {
-							url: "={{ $request.url }}",
+							url: '={{ $request.url }}',
 							qs: {
-								cursor: "={{ $response.body.pagination?.nextCursor }}",
-								customId: "={{ $parameter.filters?.customId }}",
-								archived: "={{ $parameter.filters?.archived }}",
+								cursor: '={{ $response.body.pagination?.nextCursor }}',
+								customId: '={{ $parameter.filters?.customId }}',
+								archived: '={{ $parameter.filters?.archived }}',
 								limit: "={{ $parameter.returnAll ? '100' : undefined }}",
 							},
 						},
@@ -70,11 +70,11 @@ export const clientListDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: "Filters",
-		name: "filters",
-		type: "collection",
+		displayName: 'Filters',
+		name: 'filters',
+		type: 'collection',
 		typeOptions: {
-			multipleValueButtonText: "Add Filter",
+			multipleValueButtonText: 'Add Filter',
 		},
 		displayOptions: {
 			show: showOnlyForClientList,
@@ -82,45 +82,44 @@ export const clientListDescription: INodeProperties[] = [
 		default: {},
 		options: [
 			{
-				displayName: "Custom ID",
-				name: "customId",
-				type: "string",
-				default: "",
-				description: "Return only clients with this custom ID",
+				displayName: 'Custom ID',
+				name: 'customId',
+				type: 'string',
+				default: '',
+				description: 'Return only clients with this custom ID',
 				routing: {
 					request: {
 						qs: {
-							customId: "={{$value}}",
+							customId: '={{$value}}',
 						},
 					},
 				},
 			},
 
 			{
-				displayName: "Archived",
-				name: "archived",
-				type: "boolean",
+				displayName: 'Archived',
+				name: 'archived',
+				type: 'boolean',
 				default: false,
-				description: "Whether to return archived clients",
+				description: 'Whether to return archived clients',
 				routing: {
 					request: {
 						qs: {
-							archived: "={{$value}}",
+							archived: '={{$value}}',
 						},
 					},
 				},
 			},
 			{
-				displayName: "Cursor",
-				name: "cursor",
-				type: "string",
-				default: "",
-				description:
-					"Cursor for pagination (used to get the next page of results)",
+				displayName: 'Cursor',
+				name: 'cursor',
+				type: 'string',
+				default: '',
+				description: 'Cursor for pagination (used to get the next page of results)',
 				routing: {
 					request: {
 						qs: {
-							cursor: "={{$value}}",
+							cursor: '={{$value}}',
 						},
 					},
 				},

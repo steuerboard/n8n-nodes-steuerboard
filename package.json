@@ -25,8 +25,11 @@
 		"lint": "n8n-node lint",
 		"lint:fix": "n8n-node lint --fix",
 		"format": "prettier --write .",
-		"release": "n8n-node release",
-		"prepublishOnly": "n8n-node prerelease"
+		"format:check": "prettier --check .",
+		"release": "release-it",
+		"release:dry": "release-it --dry-run",
+		"pack:check": "npm pack --dry-run",
+		"pack:preview": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz"
 	},
 	"files": [
 		"dist"
@@ -42,6 +45,7 @@
 	},
 	"devDependencies": {
 		"@n8n/node-cli": "*",
+		"@release-it/conventional-changelog": "^8.0.2",
 		"eslint": "9.32.0",
 		"prettier": "3.6.2",
 		"release-it": "^19.0.4",
