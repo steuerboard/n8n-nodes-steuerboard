@@ -1,0 +1,18 @@
+{
+	"node": "n8n-nodes-steuerboard",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Development", "Developer Tools", "Finance and Accounting"],
+	"resources": {
+		"credentialDocumentation": [
+			{
+				"url": "https://docs.steuerboard.com/api-keys"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://docs.steuerboard.com"
+			}
+		]
+	}
+}

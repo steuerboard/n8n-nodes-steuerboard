@@ -1,0 +1,53 @@
+{
+	"name": "n8n-nodes-steuerboard",
+	"version": "0.1.0",
+	"description": "n8n community node to work with the Steuerboard API",
+	"license": "MIT",
+	"homepage": "https://steuerboard.net",
+	"keywords": [
+		"n8n-community-node-package",
+		"steuerboard",
+		"accounting",
+		"steuerberater"
+	],
+	"author": {
+		"name": "Steuerboard Labs",
+		"email": "support@steuerboard.net"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/steuerboard/n8n-nodes-steuerboard"
+	},
+	"scripts": {
+		"build": "n8n-node build",
+		"build:watch": "tsc --watch",
+		"dev": "n8n-node dev",
+		"lint": "n8n-node lint",
+		"lint:fix": "n8n-node lint --fix",
+		"format": "prettier --write .",
+		"release": "n8n-node release",
+		"prepublishOnly": "n8n-node prerelease"
+	},
+	"files": [
+		"dist"
+	],
+	"n8n": {
+		"n8nNodesApiVersion": 1,
+		"credentials": [
+			"dist/credentials/SteuerboardApi.credentials.js"
+		],
+		"nodes": [
+			"dist/nodes/Steuerboard/Steuerboard.node.js"
+		]
+	},
+	"devDependencies": {
+		"@n8n/node-cli": "*",
+		"eslint": "9.32.0",
+		"prettier": "3.6.2",
+		"release-it": "^19.0.4",
+		"typescript": "5.9.2"
+	},
+	"peerDependencies": {
+		"n8n-workflow": "*"
+	}
+}
