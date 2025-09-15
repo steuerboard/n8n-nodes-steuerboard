@@ -1,5 +1,5 @@
 {
-	"name": "n8n-nodes-steuerboard",
+	"name": "@steuerboard/n8n-nodes-steuerboard",
 	"version": "1.1.0",
 	"description": "n8n community node to work with the Steuerboard API",
 	"license": "MIT",
