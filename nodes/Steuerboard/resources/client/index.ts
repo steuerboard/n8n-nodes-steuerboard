@@ -11,19 +11,6 @@ const showOnlyForClients = {
 
 export const clientDescription: INodeProperties[] = [
 	{
-		displayName: 'Resource',
-		name: 'resource',
-		type: 'options',
-		noDataExpression: true,
-		options: [
-			{
-				name: 'Client',
-				value: RESOURCE.CLIENT,
-			},
-		],
-		default: RESOURCE.CLIENT,
-	},
-	{
 		displayName: 'Operation',
 		name: 'operation',
 		type: 'options',
@@ -40,7 +27,7 @@ export const clientDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/v1/admin/clients',
+						url: '=/admin/clients',
 					},
 				},
 			},
@@ -52,7 +39,7 @@ export const clientDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/v1/admin/clients/{{$parameter.clientId}}',
+						url: '=/admin/clients/{{$parameter.clientId}}',
 					},
 				},
 			},

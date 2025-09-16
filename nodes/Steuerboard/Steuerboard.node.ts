@@ -1,5 +1,6 @@
 import { type INodeType, type INodeTypeDescription, NodeConnectionType } from 'n8n-workflow';
 import { clientDescription } from './resources/client';
+import { workspaceDescription } from './resources/workspace';
 import { STEUERBOARD_API_URL } from './shared/constants';
 
 export class Steuerboard implements INodeType {
@@ -44,10 +45,15 @@ export class Steuerboard implements INodeType {
 						name: 'Client',
 						value: 'client',
 					},
+					{
+						name: 'Workspace',
+						value: 'workspace',
+					},
 				],
 				default: 'client',
 			},
 			...clientDescription,
+			...workspaceDescription,
 		],
 	};
 }

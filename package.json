@@ -21,7 +21,7 @@
 	"scripts": {
 		"build": "n8n-node build",
 		"build:watch": "tsc --watch",
-		"dev": "n8n-node dev",
+		"dev": "dotenv -e .env n8n-node dev",
 		"lint": "n8n-node lint",
 		"lint:fix": "n8n-node lint --fix",
 		"format": "prettier --write .",
@@ -47,6 +47,8 @@
 	"devDependencies": {
 		"@n8n/node-cli": "*",
 		"@release-it/conventional-changelog": "^10.0.1",
+		"@types/node": "^24.5.0",
+		"dotenv-cli": "^10.0.0",
 		"eslint": "9.35.0",
 		"prettier": "3.6.2",
 		"release-it": "^19.0.4",
