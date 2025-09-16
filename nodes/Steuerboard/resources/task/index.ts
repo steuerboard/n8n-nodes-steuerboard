@@ -3,6 +3,7 @@
 import type { INodeProperties } from 'n8n-workflow';
 import { OPERATION, RESOURCE } from '../../shared/constants';
 import { taskCreateDescription } from './create';
+
 import { taskDeleteDescription } from './delete';
 import { taskGetDescription } from './get';
 import { taskListDescription } from './list';
@@ -30,7 +31,7 @@ export const taskDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/v1/tasks',
+						url: '=/tasks',
 					},
 				},
 			},
@@ -42,7 +43,7 @@ export const taskDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/v1/tasks/{{$parameter.taskId}}',
+						url: '=/tasks/{{$parameter.taskId}}',
 					},
 				},
 			},
@@ -54,7 +55,7 @@ export const taskDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'POST',
-						url: '=/v1/tasks',
+						url: '=/tasks',
 						headers: {
 							'x-client-id': '={{ $parameter.clientId }}',
 						},
@@ -69,7 +70,7 @@ export const taskDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'PATCH',
-						url: '=/v1/tasks/{{$parameter.taskId}}',
+						url: '=/tasks/{{$parameter.taskId}}',
 					},
 				},
 			},
@@ -81,7 +82,7 @@ export const taskDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'DELETE',
-						url: '=/v1/tasks/{{$parameter.taskId}}',
+						url: '=/tasks/{{$parameter.taskId}}',
 					},
 				},
 			},

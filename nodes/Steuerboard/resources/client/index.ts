@@ -27,7 +27,7 @@ export const clientDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/v1/admin/clients',
+						url: '=/admin/clients',
 					},
 				},
 			},
@@ -39,7 +39,7 @@ export const clientDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/v1/admin/clients/{{$parameter.clientId}}',
+						url: '=/admin/clients/{{$parameter.clientId}}',
 					},
 				},
 			},
