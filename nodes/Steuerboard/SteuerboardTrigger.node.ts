@@ -1,5 +1,6 @@
 import {
 	NodeConnectionType,
+	type IDataObject,
 	type INodeExecutionData,
 	type INodeType,
 	type INodeTypeDescription,
@@ -39,40 +40,40 @@ export class SteuerboardTrigger implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'Client webhook',
+						name: 'Client Webhook',
 						value: 'clientChanges',
 						action: 'Client webhook',
 						description: 'Triggers on Client changes webhook',
 					},
 					{
-						name: 'Workspace webhook',
-						value: 'workspaceChanges',
-						action: 'Workspace webhook',
-						description: 'Triggers on Workspace changes webhook',
-					},
-					{
-						name: 'File webhook',
-						value: 'fileChanges',
-						action: 'File webhook',
-						description: 'Triggers on File changes webhook',
-					},
-					{
-						name: 'Task webhook',
-						value: 'taskChanges',
-						action: 'Task webhook',
-						description: 'Triggers on Task changes webhook',
-					},
-					{
-						name: 'File comment created',
+						name: 'File Comment Created',
 						value: 'fileCommentCreated',
 						action: 'File comment created',
 						description: 'Triggers when a file comment is created',
 					},
 					{
-						name: 'Task comment created',
+						name: 'File Webhook',
+						value: 'fileChanges',
+						action: 'File webhook',
+						description: 'Triggers on File changes webhook',
+					},
+					{
+						name: 'Task Comment Created',
 						value: 'taskCommentCreated',
 						action: 'Task comment created',
 						description: 'Triggers when a task comment is created',
+					},
+					{
+						name: 'Task Webhook',
+						value: 'taskChanges',
+						action: 'Task webhook',
+						description: 'Triggers on Task changes webhook',
+					},
+					{
+						name: 'Workspace Webhook',
+						value: 'workspaceChanges',
+						action: 'Workspace webhook',
+						description: 'Triggers on Workspace changes webhook',
 					},
 				],
 				default: 'clientChanges',
@@ -146,7 +147,7 @@ export class SteuerboardTrigger implements INodeType {
 				description: 'If set, only emit when action matches one of these (task)',
 			},
 			{
-				displayName: 'File comment Actions',
+				displayName: 'File Comment Actions',
 				name: 'actionsFileComment',
 				type: 'multiOptions',
 				displayOptions: {
@@ -159,7 +160,7 @@ export class SteuerboardTrigger implements INodeType {
 				description: 'If set, only emit when action matches one of these (file comment)',
 			},
 			{
-				displayName: 'Task comment Actions',
+				displayName: 'Task Comment Actions',
 				name: 'actionsTaskComment',
 				type: 'multiOptions',
 				displayOptions: {
@@ -178,7 +179,7 @@ export class SteuerboardTrigger implements INodeType {
 		const req = this.getRequestObject();
 		const res = this.getResponseObject();
 
-		const payload = (req as any).body ?? {};
+		const payload = (req as { body?: IDataObject }).body ?? {};
 		const selectedEvent = this.getNodeParameter('event', 0) as string;
 		const eventToResourceMap: Record<string, string> = {
 			clientChanges: 'CLIENT',
@@ -211,7 +212,7 @@ export class SteuerboardTrigger implements INodeType {
 
 		// (Removed duplicated resource checks – generalized above)
 		if (Array.isArray(allowedActions) && allowedActions.length > 0) {
-			if (!allowedActions.includes(payload?.action)) {
+			if (!allowedActions.includes(payload?.action as string)) {
 				res.status(200).json({ received: true, filtered: true });
 				return {
 					workflowData: [],
