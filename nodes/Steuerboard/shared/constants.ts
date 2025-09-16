@@ -3,6 +3,7 @@ export const STEUERBOARD_API_URL =
 
 export const RESOURCE = {
 	CLIENT: 'client',
+	WORKSPACE: 'workspace',
 } as const;
 
 export const OPERATION = {

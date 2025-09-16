@@ -11,19 +11,6 @@ const showOnlyForClients = {
 
 export const clientDescription: INodeProperties[] = [
 	{
-		displayName: 'Resource',
-		name: 'resource',
-		type: 'options',
-		noDataExpression: true,
-		options: [
-			{
-				name: 'Client',
-				value: RESOURCE.CLIENT,
-			},
-		],
-		default: RESOURCE.CLIENT,
-	},
-	{
 		displayName: 'Operation',
 		name: 'operation',
 		type: 'options',
