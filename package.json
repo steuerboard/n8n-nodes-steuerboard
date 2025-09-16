@@ -40,7 +40,8 @@
 			"dist/credentials/SteuerboardApi.credentials.js"
 		],
 		"nodes": [
-			"dist/nodes/Steuerboard/Steuerboard.node.js"
+			"dist/nodes/Steuerboard/Steuerboard.node.js",
+			"dist/nodes/Steuerboard/SteuerboardTrigger.node.js"
 		]
 	},
 	"devDependencies": {
