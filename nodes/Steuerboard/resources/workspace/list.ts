@@ -80,31 +80,20 @@ export const workspaceListDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Filters',
-		name: 'filters',
-		type: 'collection',
-		typeOptions: {
-			multipleValueButtonText: 'Add Filter',
-		},
+		displayName: 'Cursor',
+		name: 'cursor',
+		type: 'string',
+		default: '',
+		description: 'Cursor for pagination (used to get the next page of results)',
 		displayOptions: {
 			show: showOnlyForWorkspaceList,
 		},
-		default: {},
-		options: [
-			{
-				displayName: 'Cursor',
-				name: 'cursor',
-				type: 'string',
-				default: '',
-				description: 'Cursor for pagination (used to get the next page of results)',
-				routing: {
-					request: {
-						qs: {
-							cursor: '={{$value}}',
-						},
-					},
+		routing: {
+			request: {
+				qs: {
+					cursor: '={{ $value || undefined }}',
 				},
 			},
-		],
+		},
 	},
 ];
