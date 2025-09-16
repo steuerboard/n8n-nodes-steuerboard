@@ -27,7 +27,7 @@ export const workspaceDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/v1/workspaces',
+						url: '=/workspaces',
 						headers: {
 							'x-client-id': '={{ $parameter.clientId }}',
 						},
@@ -42,7 +42,7 @@ export const workspaceDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/v1/workspaces/{{$parameter.workspaceId}}',
+						url: '=/workspaces/{{$parameter.workspaceId}}',
 						headers: {
 							'x-client-id': '={{ $parameter.clientId }}',
 						},
