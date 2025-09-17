@@ -1,5 +1,8 @@
 import { type INodeType, type INodeTypeDescription, NodeConnectionType } from 'n8n-workflow';
 import { clientDescription } from './resources/client';
+import { fileDescription } from './resources/file';
+import { taskDescription } from './resources/task';
+import { workspaceDescription } from './resources/workspace';
 
 export class Steuerboard implements INodeType {
 	description: INodeTypeDescription = {
@@ -43,10 +46,25 @@ export class Steuerboard implements INodeType {
 						name: 'Client',
 						value: 'client',
 					},
+					{
+						name: 'Workspace',
+						value: 'workspace',
+					},
+					{
+						name: 'File',
+						value: 'file',
+					},
+					{
+						name: 'Task',
+						value: 'task',
+					},
 				],
 				default: 'client',
 			},
 			...clientDescription,
+			...workspaceDescription,
+			...fileDescription,
+			...taskDescription,
 		],
 	};
 }
