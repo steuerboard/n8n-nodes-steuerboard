@@ -30,7 +30,7 @@ export const fileDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/v1/files',
+						url: '=/files',
 						headers: {
 							'x-client-id': '={{ $parameter.clientId }}',
 						},
@@ -45,7 +45,7 @@ export const fileDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'POST',
-						url: '=/v1/files',
+						url: '=/files',
 						headers: {
 							'x-client-id': '={{ $parameter.clientId }}',
 						},
@@ -60,7 +60,7 @@ export const fileDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/v1/files/{{$parameter.fileId}}',
+						url: '=/files/{{$parameter.fileId}}',
 						headers: {
 							'x-client-id': '={{ $parameter.clientId }}',
 						},
@@ -75,7 +75,7 @@ export const fileDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'DELETE',
-						url: '=/v1/files/{{$parameter.fileId}}',
+						url: '=/files/{{$parameter.fileId}}',
 						headers: {
 							'x-client-id': '={{ $parameter.clientId }}',
 						},
@@ -90,7 +90,7 @@ export const fileDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'PATCH',
-						url: '=/v1/files/{{$parameter.fileId}}',
+						url: '=/files/{{$parameter.fileId}}',
 						headers: {
 							'x-client-id': '={{ $parameter.clientId }}',
 						},

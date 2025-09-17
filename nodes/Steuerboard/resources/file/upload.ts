@@ -1,5 +1,13 @@
+import FormData from 'form-data';
 import type { INodeProperties } from 'n8n-workflow';
 import { OPERATION, RESOURCE } from '../../shared/constants';
+
+interface AdditionalFields {
+	labelIds?: string;
+	name?: string;
+	folderId?: string;
+	taskId?: string;
+}
 
 const showOnlyForFileUpload = {
 	operation: [OPERATION.CREATE],
@@ -85,26 +93,25 @@ export const fileUploadDescription: INodeProperties[] = [
 				preSend: [
 					async function (this, requestOptions) {
 						// Convert to multipart/form-data with binary file
-						const form = new (require('form-data'))();
+						const form = new FormData();
 						const binaryPropertyName = this.getNodeParameter('binaryPropertyName', 0) as string;
 						const workspaceId = this.getNodeParameter('workspaceId', 0) as string;
 						const additionalFields =
-							(this.getNodeParameter('additionalFields', 0, {}) as any) || {};
+							(this.getNodeParameter('additionalFields', 0, {}) as AdditionalFields) || {};
 						const buffer = await this.helpers.getBinaryDataBuffer(binaryPropertyName, 0);
 						const binaryData = this.helpers.assertBinaryData(binaryPropertyName, 0);
 						const fileName = binaryData.fileName || 'file';
 						const mimeType = binaryData.mimeType || 'application/octet-stream';
 
 						form.append('workspaceId', workspaceId);
-						if (additionalFields.name) form.append('name', additionalFields.name as string);
-						if (additionalFields.folderId)
-							form.append('folderId', additionalFields.folderId as string);
-						if (additionalFields.taskId) form.append('taskId', additionalFields.taskId as string);
-						if (additionalFields.labelIds)
-							form.append('labelIds', additionalFields.labelIds as string);
+						if (additionalFields.name) form.append('name', additionalFields.name);
+						if (additionalFields.folderId) form.append('folderId', additionalFields.folderId);
+						if (additionalFields.taskId) form.append('taskId', additionalFields.taskId);
+						if (additionalFields.labelIds) form.append('labelIds', additionalFields.labelIds);
 						form.append('file', buffer, { filename: fileName, contentType: mimeType });
 
-						requestOptions.body = form as unknown as any;
+						type ReqWithBody = { body?: unknown };
+						(requestOptions as ReqWithBody).body = form;
 						const formHeaders = form.getHeaders();
 						requestOptions.headers = {
 							...(requestOptions.headers || {}),

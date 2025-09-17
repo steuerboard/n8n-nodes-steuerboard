@@ -24,12 +24,6 @@ export const fileUpdateDescription: INodeProperties[] = [
 		required: true,
 		description: 'The ID of the file to update',
 		displayOptions: { show: showOnlyForFileUpdate },
-		routing: {
-			send: {
-				type: 'query',
-				property: 'fileId',
-			},
-		},
 	},
 	{
 		displayName: 'Update Fields',
@@ -47,7 +41,7 @@ export const fileUpdateDescription: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'New file name',
-				routing: { request: { body: { name: '={{ $value }}' } } },
+				routing: { request: { body: { name: '={{ $value || undefined }}' } } },
 			},
 			{
 				displayName: 'Label IDs',
@@ -62,7 +56,6 @@ export const fileUpdateDescription: INodeProperties[] = [
 				name: 'folderId',
 				type: 'string',
 				default: '',
-				description: 'Folder ID',
 				routing: { request: { body: { folderId: '={{ $value || undefined }}' } } },
 			},
 			{
@@ -70,7 +63,6 @@ export const fileUpdateDescription: INodeProperties[] = [
 				name: 'taskId',
 				type: 'string',
 				default: '',
-				description: 'Task ID',
 				routing: { request: { body: { taskId: '={{ $value || undefined }}' } } },
 			},
 		],
