@@ -1,5 +1,3 @@
-export const STEUERBOARD_API_URL = 'http://localhost:5200';
-
 export const RESOURCE = {
 	CLIENT: 'client',
 } as const;

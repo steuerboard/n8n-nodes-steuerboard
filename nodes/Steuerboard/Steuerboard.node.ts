@@ -1,6 +1,5 @@
 import { type INodeType, type INodeTypeDescription, NodeConnectionType } from 'n8n-workflow';
 import { clientDescription } from './resources/client';
-import { STEUERBOARD_API_URL } from './shared/constants';
 
 export class Steuerboard implements INodeType {
 	description: INodeTypeDescription = {
@@ -27,7 +26,7 @@ export class Steuerboard implements INodeType {
 			},
 		],
 		requestDefaults: {
-			baseURL: STEUERBOARD_API_URL,
+			baseURL: '={{$credentials.baseUrl}}',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
