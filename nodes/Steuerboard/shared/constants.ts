@@ -4,6 +4,7 @@ export const STEUERBOARD_API_URL =
 export const RESOURCE = {
 	CLIENT: 'client',
 	WORKSPACE: 'workspace',
+	FILE: 'file',
 	TASK: 'task',
 } as const;
 
