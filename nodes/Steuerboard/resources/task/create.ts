@@ -54,7 +54,6 @@ export const taskCreateDescription: INodeProperties[] = [
 		name: 'text',
 		type: 'string',
 		default: '',
-		required: false,
 		description: 'The text of the task',
 		displayOptions: { show: showOnlyForTaskCreate },
 		routing: {
@@ -70,7 +69,6 @@ export const taskCreateDescription: INodeProperties[] = [
 		name: 'dueDate',
 		type: 'string',
 		default: '',
-		required: false,
 		description: 'The due date of the task in ISO 8601 format',
 		displayOptions: { show: showOnlyForTaskCreate },
 		routing: {

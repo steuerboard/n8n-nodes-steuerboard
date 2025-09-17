@@ -15,12 +15,6 @@ export const taskUpdateDescription: INodeProperties[] = [
 		required: true,
 		description: 'The ID of the task to update',
 		displayOptions: { show: showOnlyForTaskUpdate },
-		routing: {
-			send: {
-				type: 'query',
-				property: 'taskId',
-			},
-		},
 	},
 	{
 		displayName: 'Fields',
@@ -35,7 +29,7 @@ export const taskUpdateDescription: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'The title of the task',
-				routing: { request: { body: { title: '={{ $value }}' } } },
+				routing: { request: { body: { title: '={{ $value || undefined }}' } } },
 			},
 			{
 				displayName: 'Text',
@@ -43,7 +37,7 @@ export const taskUpdateDescription: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'The text of the task',
-				routing: { request: { body: { text: '={{ $value }}' } } },
+				routing: { request: { body: { text: '={{ $value || undefined }}' } } },
 			},
 			{
 				displayName: 'Due Date',
@@ -51,7 +45,7 @@ export const taskUpdateDescription: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'The due date of the task in ISO 8601 format',
-				routing: { request: { body: { dueDate: '={{ $value }}' } } },
+				routing: { request: { body: { dueDate: '={{ $value || undefined }}' } } },
 			},
 			{
 				displayName: 'Status',
@@ -66,7 +60,7 @@ export const taskUpdateDescription: INodeProperties[] = [
 				],
 				default: 'OPEN',
 				description: 'The status of the task',
-				routing: { request: { body: { status: '={{ $value }}' } } },
+				routing: { request: { body: { status: '={{ $value || undefined }}' } } },
 			},
 		],
 		displayOptions: { show: showOnlyForTaskUpdate },
