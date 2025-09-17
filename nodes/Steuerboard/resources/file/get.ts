@@ -24,11 +24,5 @@ export const fileGetDescription: INodeProperties[] = [
 		required: true,
 		description: 'The ID of the file to get',
 		displayOptions: { show: showOnlyForFileGet },
-		routing: {
-			send: {
-				type: 'query',
-				property: 'fileId',
-			},
-		},
 	},
 ];

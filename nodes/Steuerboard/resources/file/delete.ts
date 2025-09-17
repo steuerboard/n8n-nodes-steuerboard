@@ -24,11 +24,5 @@ export const fileDeleteDescription: INodeProperties[] = [
 		required: true,
 		description: 'The ID of the file to delete',
 		displayOptions: { show: showOnlyForFileDelete },
-		routing: {
-			send: {
-				type: 'query',
-				property: 'fileId',
-			},
-		},
 	},
 ];
