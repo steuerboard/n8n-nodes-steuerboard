@@ -1,8 +1,8 @@
 import type {
 	IAuthenticateGeneric,
+	Icon,
 	ICredentialTestRequest,
 	ICredentialType,
-	Icon,
 	INodeProperties,
 } from 'n8n-workflow';
 import { STEUERBOARD_API_URL } from '../nodes/Steuerboard/shared/constants';
@@ -43,7 +43,7 @@ export class SteuerboardApi implements ICredentialType {
 	test: ICredentialTestRequest = {
 		request: {
 			baseURL: STEUERBOARD_API_URL,
-			url: '/v1/ping',
+			url: '/ping',
 			headers: {
 				Authorization: '={{"Bearer " + $credentials.apiKey}}',
 			},
