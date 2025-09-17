@@ -4,6 +4,7 @@ export const STEUERBOARD_API_URL =
 export const RESOURCE = {
 	CLIENT: 'client',
 	WORKSPACE: 'workspace',
+	TASK: 'task',
 } as const;
 
 export const OPERATION = {
@@ -11,4 +12,5 @@ export const OPERATION = {
 	LIST: 'list',
 	CREATE: 'create',
 	UPDATE: 'update',
+	DELETE: 'delete',
 } as const;
