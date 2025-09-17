@@ -12,7 +12,6 @@ export const taskListDescription: INodeProperties[] = [
 		name: 'clientId',
 		type: 'string',
 		default: '',
-		required: false,
 		description: 'The ID of the client (optional filter)',
 		displayOptions: { show: showOnlyForTaskList },
 		routing: {
@@ -28,7 +27,6 @@ export const taskListDescription: INodeProperties[] = [
 		name: 'workspaceId',
 		type: 'string',
 		default: '',
-		required: false,
 		description: 'The ID of the workspace (optional filter)',
 		displayOptions: { show: showOnlyForTaskList },
 		routing: {
