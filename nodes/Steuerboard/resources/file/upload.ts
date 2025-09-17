@@ -35,7 +35,7 @@ export const fileUploadDescription: INodeProperties[] = [
 		routing: { request: { body: { workspaceId: '={{ $value }}' } } },
 	},
 	{
-		displayName: 'File Binary Property',
+		displayName: 'File',
 		name: 'binaryPropertyName',
 		type: 'string',
 		default: 'data',
