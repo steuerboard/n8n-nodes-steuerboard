@@ -5,7 +5,6 @@ import type {
 	ICredentialType,
 	INodeProperties,
 } from 'n8n-workflow';
-import { STEUERBOARD_API_URL } from '../nodes/Steuerboard/shared/constants';
 
 export class SteuerboardApi implements ICredentialType {
 	name = 'steuerboardApi';
@@ -29,6 +28,13 @@ export class SteuerboardApi implements ICredentialType {
 			typeOptions: { password: true },
 			description: 'Create an API key in Steuerboard and paste the key here',
 		},
+		{
+			displayName: 'Base URL',
+			name: 'baseUrl',
+			type: 'string',
+			default: 'https://api.steuerboard.com/v1',
+			description: 'Base URL of the Steuerboard API. For local dev, e.g. http://localhost:8080/v1',
+		},
 	];
 
 	authenticate: IAuthenticateGeneric = {
@@ -42,7 +48,7 @@ export class SteuerboardApi implements ICredentialType {
 
 	test: ICredentialTestRequest = {
 		request: {
-			baseURL: STEUERBOARD_API_URL,
+			baseURL: '={{$credentials.baseUrl}}',
 			url: '/ping',
 			headers: {
 				Authorization: '={{"Bearer " + $credentials.apiKey}}',

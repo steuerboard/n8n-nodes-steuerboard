@@ -3,7 +3,6 @@ import { clientDescription } from './resources/client';
 import { fileDescription } from './resources/file';
 import { taskDescription } from './resources/task';
 import { workspaceDescription } from './resources/workspace';
-import { STEUERBOARD_API_URL } from './shared/constants';
 
 export class Steuerboard implements INodeType {
 	description: INodeTypeDescription = {
@@ -30,7 +29,7 @@ export class Steuerboard implements INodeType {
 			},
 		],
 		requestDefaults: {
-			baseURL: STEUERBOARD_API_URL,
+			baseURL: '={{$credentials.baseUrl}}',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
