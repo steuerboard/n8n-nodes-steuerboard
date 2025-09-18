@@ -1,12 +1,11 @@
-import FormData from 'form-data';
 import type { INodeProperties } from 'n8n-workflow';
 import { OPERATION, RESOURCE } from '../../shared/constants';
 
 interface AdditionalFields {
-	labelIds?: string;
 	name?: string;
 	folderId?: string;
 	taskId?: string;
+	labelIds?: string;
 }
 
 const showOnlyForFileUpload = {
@@ -32,7 +31,6 @@ export const fileUploadDescription: INodeProperties[] = [
 		required: true,
 		description: 'The ID of the workspace',
 		displayOptions: { show: showOnlyForFileUpload },
-		routing: { request: { body: { workspaceId: '={{ $value }}' } } },
 	},
 	{
 		displayName: 'File',
@@ -57,28 +55,24 @@ export const fileUploadDescription: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'JSON array of label IDs, e.g. ["id1","id2"]',
-				routing: { request: { body: { labelIds: '={{ $value || undefined }}' } } },
 			},
 			{
 				displayName: 'Name',
 				name: 'name',
 				type: 'string',
 				default: '',
-				routing: { request: { body: { name: '={{ $value || undefined }}' } } },
 			},
 			{
 				displayName: 'Folder ID',
 				name: 'folderId',
 				type: 'string',
 				default: '',
-				routing: { request: { body: { folderId: '={{ $value || undefined }}' } } },
 			},
 			{
 				displayName: 'Task ID',
 				name: 'taskId',
 				type: 'string',
 				default: '',
-				routing: { request: { body: { taskId: '={{ $value || undefined }}' } } },
 			},
 		],
 	},
@@ -92,34 +86,106 @@ export const fileUploadDescription: INodeProperties[] = [
 			send: {
 				preSend: [
 					async function (this, requestOptions) {
-						// Convert to multipart/form-data with binary file
-						const form = new FormData();
 						const binaryPropertyName = this.getNodeParameter('binaryPropertyName', 0) as string;
 						const workspaceId = this.getNodeParameter('workspaceId', 0) as string;
-						const additionalFields =
-							(this.getNodeParameter('additionalFields', 0, {}) as AdditionalFields) || {};
-						const buffer = await this.helpers.getBinaryDataBuffer(binaryPropertyName, 0);
+						const additionalFields = this.getNodeParameter(
+							'additionalFields',
+							0,
+							{},
+						) as AdditionalFields;
+
+						// Get binary data using n8n helpers
 						const binaryData = this.helpers.assertBinaryData(binaryPropertyName, 0);
+						const buffer = await this.helpers.getBinaryDataBuffer(binaryPropertyName, 0);
+
+						// Build multipart boundary
+						const boundary = `----n8nFormBoundary${Date.now()}${Math.random().toString(36)}`;
+
+						// Build multipart body manually
+						const parts: Buffer[] = [];
+						const textEncoder = new TextEncoder();
+
+						// Add workspaceId field
+						parts.push(Buffer.from(textEncoder.encode(`--${boundary}\r\n`)));
+						parts.push(
+							Buffer.from(
+								textEncoder.encode(`Content-Disposition: form-data; name="workspaceId"\r\n\r\n`),
+							),
+						);
+						parts.push(Buffer.from(textEncoder.encode(`${workspaceId}\r\n`)));
+
+						// Add optional fields
+						if (additionalFields.name) {
+							parts.push(Buffer.from(textEncoder.encode(`--${boundary}\r\n`)));
+							parts.push(
+								Buffer.from(
+									textEncoder.encode(`Content-Disposition: form-data; name="name"\r\n\r\n`),
+								),
+							);
+							parts.push(Buffer.from(textEncoder.encode(`${additionalFields.name}\r\n`)));
+						}
+
+						if (additionalFields.folderId) {
+							parts.push(Buffer.from(textEncoder.encode(`--${boundary}\r\n`)));
+							parts.push(
+								Buffer.from(
+									textEncoder.encode(`Content-Disposition: form-data; name="folderId"\r\n\r\n`),
+								),
+							);
+							parts.push(Buffer.from(textEncoder.encode(`${additionalFields.folderId}\r\n`)));
+						}
+
+						if (additionalFields.taskId) {
+							parts.push(Buffer.from(textEncoder.encode(`--${boundary}\r\n`)));
+							parts.push(
+								Buffer.from(
+									textEncoder.encode(`Content-Disposition: form-data; name="taskId"\r\n\r\n`),
+								),
+							);
+							parts.push(Buffer.from(textEncoder.encode(`${additionalFields.taskId}\r\n`)));
+						}
+
+						if (additionalFields.labelIds) {
+							parts.push(Buffer.from(textEncoder.encode(`--${boundary}\r\n`)));
+							parts.push(
+								Buffer.from(
+									textEncoder.encode(`Content-Disposition: form-data; name="labelIds"\r\n\r\n`),
+								),
+							);
+							parts.push(Buffer.from(textEncoder.encode(`${additionalFields.labelIds}\r\n`)));
+						}
+
+						// Add file field
 						const fileName = binaryData.fileName || 'file';
 						const mimeType = binaryData.mimeType || 'application/octet-stream';
 
-						form.append('workspaceId', workspaceId);
-						if (additionalFields.name) form.append('name', additionalFields.name);
-						if (additionalFields.folderId) form.append('folderId', additionalFields.folderId);
-						if (additionalFields.taskId) form.append('taskId', additionalFields.taskId);
-						if (additionalFields.labelIds) form.append('labelIds', additionalFields.labelIds);
-						form.append('file', buffer, { filename: fileName, contentType: mimeType });
+						parts.push(Buffer.from(textEncoder.encode(`--${boundary}\r\n`)));
+						parts.push(
+							Buffer.from(
+								textEncoder.encode(
+									`Content-Disposition: form-data; name="file"; filename="${fileName}"\r\n`,
+								),
+							),
+						);
+						parts.push(Buffer.from(textEncoder.encode(`Content-Type: ${mimeType}\r\n\r\n`)));
+						parts.push(buffer);
+						parts.push(Buffer.from(textEncoder.encode(`\r\n`)));
 
-						type ReqWithBody = { body?: unknown };
-						(requestOptions as ReqWithBody).body = form;
-						const formHeaders = form.getHeaders();
+						// End boundary
+						parts.push(Buffer.from(textEncoder.encode(`--${boundary}--\r\n`)));
+
+						// Combine all parts
+						const body = Buffer.concat(parts);
+
+						// Set request options
+						requestOptions.body = body;
 						requestOptions.headers = {
-							...(requestOptions.headers || {}),
-							'Content-Type': formHeaders['content-type'],
-							'content-type': formHeaders['content-type'],
-							'x-client-id': (this.getNodeParameter('clientId', 0) as string) || '',
+							...requestOptions.headers,
+							'Content-Type': `multipart/form-data; boundary=${boundary}`,
+							'Content-Length': body.length.toString(),
 						};
 						requestOptions.json = false;
+
 						return requestOptions;
 					},
 				],
