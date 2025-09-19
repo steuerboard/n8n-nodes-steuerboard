@@ -32,6 +32,9 @@ export const taskDescription: INodeProperties[] = [
 					request: {
 						method: 'GET',
 						url: '=/tasks',
+						headers: {
+							'x-client-id': '={{ $parameter.clientId }}',
+						},
 					},
 				},
 			},
@@ -44,6 +47,9 @@ export const taskDescription: INodeProperties[] = [
 					request: {
 						method: 'GET',
 						url: '=/tasks/{{$parameter.taskId}}',
+						headers: {
+							'x-client-id': '={{ $parameter.clientId }}',
+						},
 					},
 				},
 			},
@@ -71,6 +77,9 @@ export const taskDescription: INodeProperties[] = [
 					request: {
 						method: 'PATCH',
 						url: '=/tasks/{{$parameter.taskId}}',
+						headers: {
+							'x-client-id': '={{ $parameter.clientId }}',
+						},
 					},
 				},
 			},
@@ -83,6 +92,9 @@ export const taskDescription: INodeProperties[] = [
 					request: {
 						method: 'DELETE',
 						url: '=/tasks/{{$parameter.taskId}}',
+						headers: {
+							'x-client-id': '={{ $parameter.clientId }}',
+						},
 					},
 				},
 			},

@@ -8,6 +8,15 @@ const showOnlyForTaskUpdate = {
 
 export const taskUpdateDescription: INodeProperties[] = [
 	{
+		displayName: 'Client ID',
+		name: 'clientId',
+		type: 'string',
+		default: '',
+		required: true,
+		description: 'The ID of the client',
+		displayOptions: { show: showOnlyForTaskUpdate },
+	},
+	{
 		displayName: 'Task ID',
 		name: 'taskId',
 		type: 'string',
