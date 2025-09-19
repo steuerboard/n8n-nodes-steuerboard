@@ -93,6 +93,9 @@ export const taskListDescription: INodeProperties[] = [
 								clientId: '={{ $parameter.clientId || undefined }}',
 								workspaceId: '={{ $parameter.workspaceId || undefined }}',
 							},
+							headers: {
+								'x-client-id': '={{ $parameter.clientId }}',
+							},
 						},
 					},
 				},
