@@ -12,12 +12,13 @@ export const taskListDescription: INodeProperties[] = [
 		name: 'clientId',
 		type: 'string',
 		default: '',
-		description: 'The ID of the client (optional filter)',
+		required: true,
+		description: 'The ID of the client',
 		displayOptions: { show: showOnlyForTaskList },
 		routing: {
 			request: {
 				qs: {
-					clientId: '={{ $value || undefined }}',
+					clientId: '={{ $value }}',
 				},
 			},
 		},
