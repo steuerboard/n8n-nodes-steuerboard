@@ -1,5 +1,6 @@
 export const RESOURCE = {
 	CLIENT: 'client',
+	USER: 'user',
 	WORKSPACE: 'workspace',
 	WORKSPACE_MEMBER: 'workspaceMember',
 	FILE: 'file',

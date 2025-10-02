@@ -2,6 +2,7 @@ import { type INodeType, type INodeTypeDescription, NodeConnectionType } from 'n
 import { clientDescription } from './resources/client';
 import { fileDescription } from './resources/file';
 import { taskDescription } from './resources/task';
+import { clientUserDescription } from './resources/users';
 import { workspaceDescription } from './resources/workspace';
 import { workspaceMemberDescription } from './resources/workspace-members';
 
@@ -48,6 +49,10 @@ export class Steuerboard implements INodeType {
 						value: 'client',
 					},
 					{
+						name: 'User',
+						value: 'user',
+					},
+					{
 						name: 'Workspace',
 						value: 'workspace',
 					},
@@ -67,6 +72,7 @@ export class Steuerboard implements INodeType {
 				default: 'client',
 			},
 			...clientDescription,
+			...clientUserDescription,
 			...workspaceDescription,
 			...workspaceMemberDescription,
 			...fileDescription,
