@@ -3,6 +3,7 @@ import { clientDescription } from './resources/client';
 import { fileDescription } from './resources/file';
 import { taskDescription } from './resources/task';
 import { workspaceDescription } from './resources/workspace';
+import { workspaceMemberDescription } from './resources/workspace-members';
 
 export class Steuerboard implements INodeType {
 	description: INodeTypeDescription = {
@@ -51,6 +52,10 @@ export class Steuerboard implements INodeType {
 						value: 'workspace',
 					},
 					{
+						name: 'Workspace Member',
+						value: 'workspaceMember',
+					},
+					{
 						name: 'File',
 						value: 'file',
 					},
@@ -63,6 +68,7 @@ export class Steuerboard implements INodeType {
 			},
 			...clientDescription,
 			...workspaceDescription,
+			...workspaceMemberDescription,
 			...fileDescription,
 			...taskDescription,
 		],
