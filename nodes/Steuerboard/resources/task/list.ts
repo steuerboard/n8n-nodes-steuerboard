@@ -39,6 +39,21 @@ export const taskListDescription: INodeProperties[] = [
 		},
 	},
 	{
+		displayName: 'Parent ID',
+		name: 'parentId',
+		type: 'string',
+		default: '',
+		description: 'The ID of the parent task (optional filter)',
+		displayOptions: { show: showOnlyForTaskList },
+		routing: {
+			request: {
+				qs: {
+					parentId: '={{ $value || undefined }}',
+				},
+			},
+		},
+	},
+	{
 		displayName: 'Limit',
 		name: 'limit',
 		type: 'number',
@@ -93,6 +108,7 @@ export const taskListDescription: INodeProperties[] = [
 								limit: "={{ $parameter.returnAll ? '100' : undefined }}",
 								clientId: '={{ $parameter.clientId || undefined }}',
 								workspaceId: '={{ $parameter.workspaceId || undefined }}',
+								parentId: '={{ $parameter.parentId || undefined }}',
 							},
 							headers: {
 								'x-client-id': '={{ $parameter.clientId }}',
