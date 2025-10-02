@@ -1,12 +1,12 @@
 import type { INodeProperties } from 'n8n-workflow';
 import { OPERATION, RESOURCE } from '../../shared/constants';
 
-const showOnlyForTaskList = {
+const showOnlyForClientUserList = {
 	operation: [OPERATION.LIST],
-	resource: [RESOURCE.TASK],
+	resource: [RESOURCE.USER],
 };
 
-export const taskListDescription: INodeProperties[] = [
+export const clientUserListDescription: INodeProperties[] = [
 	{
 		displayName: 'Client ID',
 		name: 'clientId',
@@ -14,41 +14,11 @@ export const taskListDescription: INodeProperties[] = [
 		default: '',
 		required: true,
 		description: 'The ID of the client',
-		displayOptions: { show: showOnlyForTaskList },
+		displayOptions: { show: showOnlyForClientUserList },
 		routing: {
 			request: {
 				qs: {
 					clientId: '={{ $value }}',
-				},
-			},
-		},
-	},
-	{
-		displayName: 'Workspace ID',
-		name: 'workspaceId',
-		type: 'string',
-		default: '',
-		description: 'The ID of the workspace (optional filter)',
-		displayOptions: { show: showOnlyForTaskList },
-		routing: {
-			request: {
-				qs: {
-					workspaceId: '={{ $value || undefined }}',
-				},
-			},
-		},
-	},
-	{
-		displayName: 'Parent ID',
-		name: 'parentId',
-		type: 'string',
-		default: '',
-		description: 'The ID of the parent task (optional filter)',
-		displayOptions: { show: showOnlyForTaskList },
-		routing: {
-			request: {
-				qs: {
-					parentId: '={{ $value || undefined }}',
 				},
 			},
 		},
@@ -59,7 +29,7 @@ export const taskListDescription: INodeProperties[] = [
 		type: 'number',
 		displayOptions: {
 			show: {
-				...showOnlyForTaskList,
+				...showOnlyForClientUserList,
 				returnAll: [false],
 			},
 		},
@@ -85,7 +55,7 @@ export const taskListDescription: INodeProperties[] = [
 		name: 'returnAll',
 		type: 'boolean',
 		displayOptions: {
-			show: showOnlyForTaskList,
+			show: showOnlyForClientUserList,
 		},
 		default: false,
 		description: 'Whether to return all results or only up to a given limit',
@@ -107,8 +77,6 @@ export const taskListDescription: INodeProperties[] = [
 								cursor: '={{ $response.body.pagination?.nextCursor }}',
 								limit: "={{ $parameter.returnAll ? '100' : undefined }}",
 								clientId: '={{ $parameter.clientId || undefined }}',
-								workspaceId: '={{ $parameter.workspaceId || undefined }}',
-								parentId: '={{ $parameter.parentId || undefined }}',
 							},
 							headers: {
 								'x-client-id': '={{ $parameter.clientId }}',
@@ -126,7 +94,7 @@ export const taskListDescription: INodeProperties[] = [
 		default: '',
 		description: 'Cursor for pagination (used to get the next page of results)',
 		displayOptions: {
-			show: showOnlyForTaskList,
+			show: showOnlyForClientUserList,
 		},
 		routing: {
 			request: {

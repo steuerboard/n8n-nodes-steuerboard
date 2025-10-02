@@ -1,8 +1,11 @@
 import { type INodeType, type INodeTypeDescription, NodeConnectionType } from 'n8n-workflow';
+import { adminUserDescription } from './resources/admin-users';
 import { clientDescription } from './resources/client';
 import { fileDescription } from './resources/file';
 import { taskDescription } from './resources/task';
+import { clientUserDescription } from './resources/users';
 import { workspaceDescription } from './resources/workspace';
+import { workspaceMemberDescription } from './resources/workspace-members';
 
 export class Steuerboard implements INodeType {
 	description: INodeTypeDescription = {
@@ -43,12 +46,12 @@ export class Steuerboard implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'Client',
-						value: 'client',
+						name: 'Admin User',
+						value: 'adminUser',
 					},
 					{
-						name: 'Workspace',
-						value: 'workspace',
+						name: 'Client',
+						value: 'client',
 					},
 					{
 						name: 'File',
@@ -58,11 +61,26 @@ export class Steuerboard implements INodeType {
 						name: 'Task',
 						value: 'task',
 					},
+					{
+						name: 'User',
+						value: 'user',
+					},
+					{
+						name: 'Workspace',
+						value: 'workspace',
+					},
+					{
+						name: 'Workspace Member',
+						value: 'workspaceMember',
+					},
 				],
 				default: 'client',
 			},
+			...adminUserDescription,
 			...clientDescription,
+			...clientUserDescription,
 			...workspaceDescription,
+			...workspaceMemberDescription,
 			...fileDescription,
 			...taskDescription,
 		],
