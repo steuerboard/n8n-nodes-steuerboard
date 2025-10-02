@@ -2,8 +2,10 @@
 
 import type { INodeProperties } from 'n8n-workflow';
 import { OPERATION, RESOURCE } from '../../shared/constants';
+import { clientCreateDescription } from './create';
 import { clientGetDescription } from './get';
 import { clientListDescription } from './list';
+import { clientUpdateDescription } from './update';
 
 const showOnlyForClients = {
 	resource: [RESOURCE.CLIENT],
@@ -20,13 +22,13 @@ export const clientDescription: INodeProperties[] = [
 		},
 		options: [
 			{
-				name: 'List',
-				value: OPERATION.LIST,
-				action: 'List clients',
-				description: 'Returns a list of clients',
+				name: 'Create',
+				value: OPERATION.CREATE,
+				action: 'Create a client',
+				description: 'Creates a new client for the accountant',
 				routing: {
 					request: {
-						method: 'GET',
+						method: 'POST',
 						url: '=/admin/clients',
 					},
 				},
@@ -43,9 +45,35 @@ export const clientDescription: INodeProperties[] = [
 					},
 				},
 			},
+			{
+				name: 'List',
+				value: OPERATION.LIST,
+				action: 'List clients',
+				description: 'Returns a list of clients',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/admin/clients',
+					},
+				},
+			},
+			{
+				name: 'Update',
+				value: OPERATION.UPDATE,
+				action: 'Update a client',
+				description: 'Updates a client by ID',
+				routing: {
+					request: {
+						method: 'PATCH',
+						url: '=/admin/clients/{{$parameter.clientId}}',
+					},
+				},
+			},
 		],
 		default: OPERATION.LIST,
 	},
-	...clientListDescription,
+	...clientCreateDescription,
 	...clientGetDescription,
+	...clientListDescription,
+	...clientUpdateDescription,
 ];
