@@ -54,6 +54,14 @@ export class Steuerboard implements INodeType {
 						value: 'client',
 					},
 					{
+						name: 'File',
+						value: 'file',
+					},
+					{
+						name: 'Task',
+						value: 'task',
+					},
+					{
 						name: 'User',
 						value: 'user',
 					},
@@ -64,14 +72,6 @@ export class Steuerboard implements INodeType {
 					{
 						name: 'Workspace Member',
 						value: 'workspaceMember',
-					},
-					{
-						name: 'File',
-						value: 'file',
-					},
-					{
-						name: 'Task',
-						value: 'task',
 					},
 				],
 				default: 'client',

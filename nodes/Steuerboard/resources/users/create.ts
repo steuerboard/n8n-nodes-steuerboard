@@ -23,6 +23,7 @@ export const clientUserCreateDescription: INodeProperties[] = [
 		type: 'string',
 		default: '',
 		required: true,
+		placeholder: 'name@email.com',
 		description: 'Email address that should receive the invitation',
 		displayOptions: { show: showOnlyForClientUserCreate },
 		routing: {

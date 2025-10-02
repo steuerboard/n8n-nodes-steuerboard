@@ -97,10 +97,10 @@ export const adminUserListDescription: INodeProperties[] = [
 				type: 'options',
 				options: [
 					{ name: 'Created At', value: 'createdAt' },
-					{ name: 'Updated At', value: 'updatedAt' },
 					{ name: 'Email', value: 'email' },
 					{ name: 'First Name', value: 'firstName' },
 					{ name: 'Last Name', value: 'lastName' },
+					{ name: 'Updated At', value: 'updatedAt' },
 				],
 				default: 'createdAt',
 				description: 'The sort field of the results',

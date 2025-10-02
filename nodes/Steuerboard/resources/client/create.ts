@@ -45,7 +45,7 @@ export const clientCreateDescription: INodeProperties[] = [
 			{
 				name: 'Legal Person',
 				value: 'legal_person',
-				description: 'Companies like UG, GmbH, AG, Ltd., Inc., etc.',
+				description: 'Companies like UG, GmbH, AG, Ltd., Inc., etc',
 			},
 		],
 		routing: {
@@ -103,14 +103,12 @@ export const clientCreateDescription: INodeProperties[] = [
 						name: 'city',
 						type: 'string',
 						default: '',
-						description: 'City',
 					},
 					{
 						displayName: 'Postal Code',
 						name: 'postalCode',
 						type: 'string',
 						default: '',
-						description: 'Postal code',
 					},
 					{
 						displayName: 'Country Code',

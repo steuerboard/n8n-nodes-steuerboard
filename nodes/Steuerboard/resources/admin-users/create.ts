@@ -13,6 +13,7 @@ export const adminUserCreateDescription: INodeProperties[] = [
 		type: 'string',
 		default: '',
 		required: true,
+		placeholder: 'name@email.com',
 		description: 'Email address that should receive the invitation',
 		displayOptions: { show: showOnlyForAdminUserCreate },
 		routing: {
