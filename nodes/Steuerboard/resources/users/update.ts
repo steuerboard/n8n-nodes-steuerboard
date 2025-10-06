@@ -55,17 +55,17 @@ export const clientUserUpdateDescription: INodeProperties[] = [
 				type: 'options',
 				options: [
 					{
-						name: 'Client Admin',
-						value: 'client_admin',
+						name: 'Admin',
+						value: 'admin',
 						description: 'Administrator role with full access',
 					},
 					{
-						name: 'Client User',
-						value: 'client_user',
+						name: 'User',
+						value: 'user',
 						description: 'Regular user role with limited access',
 					},
 				],
-				default: 'client_admin',
+				default: 'admin',
 				description: 'The role of the user',
 				routing: { request: { body: { role: '={{ $value || undefined }}' } } },
 			},
