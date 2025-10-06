@@ -25,17 +25,18 @@ export const adminUserCreateDescription: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Role ID',
-		name: 'roleId',
+		displayName: 'Role',
+		name: 'role',
 		type: 'string',
-		default: '',
+		default: 'user',
 		required: true,
-		description: 'ID of the role to assign to the invited user',
+		description: "Role to assign to the invited user. Can be 'admin', 'user', or a custom role ID.",
+		placeholder: 'admin, user, or custom role ID',
 		displayOptions: { show: showOnlyForAdminUserCreate },
 		routing: {
 			request: {
 				body: {
-					roleId: '={{ $value }}',
+					role: '={{ $value }}',
 				},
 			},
 		},
