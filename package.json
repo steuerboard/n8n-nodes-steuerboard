@@ -1,6 +1,6 @@
 {
 	"name": "@steuerboard/n8n-nodes-steuerboard",
-	"version": "1.7.0",
+	"version": "1.8.0",
 	"description": "n8n community node to work with the Steuerboard API",
 	"license": "MIT",
 	"homepage": "https://steuerboard.net",
