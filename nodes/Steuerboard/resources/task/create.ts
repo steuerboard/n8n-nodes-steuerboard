@@ -79,4 +79,19 @@ export const taskCreateDescription: INodeProperties[] = [
 			},
 		},
 	},
+	{
+		displayName: 'Parent ID',
+		name: 'parentId',
+		type: 'string',
+		default: '',
+		description: 'The ID of the parent task',
+		displayOptions: { show: showOnlyForTaskCreate },
+		routing: {
+			request: {
+				body: {
+					parentId: '={{ $value || undefined }}',
+				},
+			},
+		},
+	},
 ];
